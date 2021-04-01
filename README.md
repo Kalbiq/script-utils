@@ -31,6 +31,7 @@ By default the image is downloaded to your Downloads folder, but it can be easil
 If you don't know how to read the graph then go to [meteo.pl](https://www.meteo.pl/) and select the report for any city, there will be a legend near the graph.
 
 It should look like this, although they might change something:
+
 ![legend](https://www.meteo.pl/um/metco/leg_um_en_cbase_256.png "Graph legend")
 
 ##### Example use:
