@@ -1,0 +1,55 @@
+#!/bin/sh
+
+cyan='\033[0;36m'
+bleach='\033[0m'
+
+if [ "${1}" = "-h" ]; then
+	echo -e ""
+	echo -e	"\tThis script downloads a list of images from unsplash"
+	echo -e	"\tthe images are in original size"
+	echo -e	"\tand are named like unique link segments"
+	echo -e
+	echo -e	"\t${cyan}get-unsplash [file_path] [save_path]${bleach}"
+	echo -e	
+	echo -e	"\t${cyan}file_path${bleach} - the file with links"
+	echo -e	"\t\tthe file with links shold have a blank line at the bottom"
+	echo -e	"\t\t(or a new line code at the end of last line)"
+	echo -e	
+	echo -e	"\t${cyan}save_path${bleach} - directory to save to"
+	echo -e	"\t\tdoesn't have to have '/' at the end,"
+	echo -e "\t\tthe script handles this"
+	echo -e ""
+
+	exit 1
+fi 
+
+if [ ${#} != 2 ]; then
+	echo "Wrong number of arguments!"
+	echo "Expected: 2 	Got: ${#}"
+	exit 1
+fi
+
+file="${1}"
+save="${2}"
+savelen=(${#save})
+
+savelen=$savelen-1
+
+if [ "${save:${savelen}}" != '/' ]; then
+	save="${save}/"
+fi
+
+if [ "${save:0:1}" != '/' ]; then
+	save="${PWD}/${save}"
+fi
+
+if [ "${file:0:1}" != '/' ]; then
+	file="${PWD}/${file}"
+fi
+
+while read link; do
+	name="${link:28}.jpg"
+	link="${link}/download"
+
+	wget -O ${save}${name} ${link}
+done < $file
