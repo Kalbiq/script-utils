@@ -1,0 +1,7 @@
+#!/bin/sh
+
+for path in ./*/Cargo.toml
+do
+	echo Cleaning $path
+	cargo clean --manifest-path $path && echo Cleaning: SUCCESS || echo Cleaning: FAIL
+done
