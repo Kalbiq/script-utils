@@ -1,0 +1,36 @@
+#!/bin/sh
+
+get_help()
+{
+echo ""
+echo "	yt [-h|--help] resolution url <save_path>"
+echo ""
+echo "		resolution"
+echo "			this resolution or the best not greater than specified"
+echo "		url"
+echo "			viedo to download"
+echo "		save_path (optional)"
+echo "			if specified the file will be saved there,"
+echo "			otherwise it will be saved in current directory"
+}
+
+for arg in $@
+do
+	if [ $arg == "-h" -o $arg == "--help" ]
+	then
+		echo cze
+		get_help
+		exit
+	fi
+done
+
+if [ $# -eq 2 ]
+then
+	yt-dlp -f "bestvideo[height<=?$1]+bestaudio" $2
+elif [ $# -eq 3 ]
+then
+	yt-dlp -f "bestvideo[height<=?$1]+bestaudio" $2 -P $3
+else
+	echo "Invalid argument count! | Expected 2 or 3 got: $#"
+	get_help
+fi
